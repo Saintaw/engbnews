@@ -1,0 +1,28 @@
+    .g-info {
+        position: absolute;
+        right: 10px;
+                 
+        }
+     #g-info-holder {
+         border: solid 1px #4eb305;
+     }
+     .g-picture {
+         width: 40px;
+         height: 40px;
+         
+     }
+     #g-person  {
+        background: #000;
+        opacity: 0;
+        min-height:40px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        font-size: 7pt;
+        transition: all 0.3s ease;         
+     }
+     #g-person:hover  {
+        opacity: 0.8;
+        min-height:40px;         
+         
+     }   

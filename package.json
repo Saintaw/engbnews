@@ -1,0 +1,16 @@
+{
+  "name": "engbnews",
+  "version": "1.0.0",
+  "description": "Newsletter sender for ENGB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "poiteal",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.5.1",
+    "bootstrap": "^3.3.6",
+    "grunt": "^0.4.5"
+  }
+}
