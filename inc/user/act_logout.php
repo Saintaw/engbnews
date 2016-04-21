@@ -1,14 +1,7 @@
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-  
-signOut();  
-</script>
 <?php
+session_start();
+    if (isset($_SESSION))
+    {
     // Unset all of the session variables.
     $_SESSION = array();
 
@@ -24,5 +17,11 @@ signOut();
 
     // Finally, destroy the session.
     session_destroy();
-    header("Location: ./index.php?loggedout=true");
-    //die('Signed out');   
+    //header("Location: ./index.php?loggedout=true");
+    //die('Signed out'); 
+     echo "Session vars erased";
+    }
+else
+    {
+    echo "No session active";
+    }

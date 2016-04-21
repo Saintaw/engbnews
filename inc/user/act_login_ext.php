@@ -1,5 +1,6 @@
 <?php
 session_start();
+//header('Content-Type: application/json');
 include_once '../inc_setup.php';
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -7,25 +8,29 @@ include_once '../inc_setup.php';
  * and open the template in the editor.
  */
 $errMsg = '';
+$message = "";
 $username = trim($_POST['username']);
+
 if($errMsg == ''){
         $records = $conn->prepare('SELECT user_id FROM users WHERE active = 1 and user_login = :username');
         $records->bindParam(':username', $username);
         $records->execute();
         $results = $records->fetch(PDO::FETCH_ASSOC);
         if(count($results) > 0 ){
-                echo "Success";
-            /* Success */
+            $_SESSION['auth'] = true;
+            $_SESSION['username'] = $username;
+            $auth_str = 'true';
         }else{
-            /* Fail */
-            
-            $errMsg .= 'Username and Password are not found<br>';
-            echo "$errMsg";
+            $auth_str = 'false';
+            $message = 'Username and Password are not found<br>';
         }
     }
-
-
 ?>
+{
+    "result": <?php echo $auth_str; ?>,
+    "email": "<?php echo $username;?>",
+    "message": "<?php echo trim($message);?>"
+}
 
 
 

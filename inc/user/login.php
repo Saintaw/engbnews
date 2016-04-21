@@ -17,7 +17,7 @@
 <script type="in/Login"></script>
 -->
 
-<div class="row">
+<div class="row" id="login-container">
     <div class="col-md-2"> </div>  
     <div class="col-md-6">
         <form class="form-signin" id="form-login">
@@ -25,8 +25,7 @@
         <div id="errLogin" class="bg-danger">
             //Error message visible here
         </div>
-        
-        
+
         
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>

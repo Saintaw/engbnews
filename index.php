@@ -10,56 +10,10 @@ require_once '/inc/inc_setup.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <script src="js/lib/jquery.min.js"></script>
-    <meta name="google-signin-client_id" content="625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
     
-    <script>
-window.onLoadCallback = function(){
-gapi.auth2.getAuthInstance()({
-      client_id: '625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com'
-    });
-   console.log('Google api loaded');
-    console.log(gapi.auth2);
-}
-    
-    
-    /* Google sign in*/
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      var gInfoStr = "";
-      
-      gInfoStr += '<div id="g-card">';
-      gInfoStr += '<a href="?actn=logout&logout=1#profile"><img src="' +profile.getImageUrl() +'" class="g-picture" />';
-      
-      gInfoStr += '<div id="g-person">';
-      gInfoStr += profile.getName();
-      gInfoStr += '</div>';
-      
-      gInfoStr += '</a></div>';
-      
-      /*
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
-      */
+    <script type="text/javascript">
  
-        $.post( "./inc/user/act_login_ext.php", { username: profile.getEmail() })
-         .done(function( data ) {
-           console.log( "Data Loaded: ");
-           console.log(data);
-           $("#debug-div").html(data);
-         });
- 
- 
- 
- 
- 
-      $(".g-info").show(); 
-      $(".g-info").html(gInfoStr);
-      $("#g-info-holder").hide();
-    }
-
     </script>
 
 
@@ -105,9 +59,11 @@ else {
 /* MAIN SWITCHCASE */
 switch ($actn) {
     case "home":
+        //require_once '/inc/user/dsp_user.php';
+        break;
+    case "dsp_form":
         require_once '/inc/inc_mailer_form.php';
         break;
-
 }   
    
    
@@ -118,8 +74,8 @@ switch ($actn) {
 ?>
 
 <div class="row">
-    <h2>Debug</h2>
-    <div id="debug-div"></div>
+    <h2>Debug window</h2>
+    <div id="debug-div" style="background-color: #ccc; color: #000;"></div>
 </div>
 
 </div>

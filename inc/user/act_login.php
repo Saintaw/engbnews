@@ -20,6 +20,7 @@ else {
     //success
      $auth_str = "true";
      $_SESSION['auth'] = true;
+     $_SESSION['username'] = trim($_POST['inputEmail']);
 }
 //header('Content-Type: application/json');
 ?>

@@ -24,20 +24,28 @@
 
 <?php
 if (!isset($_SESSION['auth']) or $_SESSION['auth'] == "") {
-  
+    //echo "<li id=\"g-info-holder\">"
+    //."<div class= \"g-signin2\" data-onsuccess=\"onSignIn\"></div>"
+    //."</li>\n";
+
     
 }
 else {
+    echo "<li><a href=\"?actn=dsp_form\">Form</a></li>\n";
     echo "<li><a href=\"?actn=test\">Test</a></li>\n";
     echo "<li><a href=\"?actn=history\">History</a></li>\n";
     echo "<li><a href=\"?actn=contacts\">Contacts</a></li>\n";
-    echo "<li><a href=\"?actn=logout&logout=1\">Logout</a></li>\n";
+    echo "<li><a class=\"logout-but\" href=\"?actn=logout&logout=1\">Logout</a></li>\n";
     
 }   
 
 
-    echo "<li id=\"g-info-holder\"><div class= \"g-signin2\" data-onsuccess=\"onSignIn\"></div></li>\n";
+    echo "<li id=\"g-info-holder\">"
+    ."<div class= \"g-signin2\" data-onsuccess=\"onSignIn\"></div>"
+    ."</li>\n";
     echo '<div class="g-info"></div>';
+ 
+
 ?>
             </ul>
 
