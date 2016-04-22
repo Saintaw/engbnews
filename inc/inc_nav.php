@@ -1,13 +1,5 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
       <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -31,20 +23,20 @@ if (!isset($_SESSION['auth']) or $_SESSION['auth'] == "") {
     
 }
 else {
-    echo "<li><a href=\"?actn=dsp_form\">Form</a></li>\n";
-    echo "<li><a href=\"?actn=test\">Test</a></li>\n";
-    echo "<li><a href=\"?actn=history\">History</a></li>\n";
-    echo "<li><a href=\"?actn=contacts\">Contacts</a></li>\n";
+    echo "<li><a class=\"navlink\" href=\"dsp_form\">Form</a></li>\n";
+    echo "<li><a class=\"navlink\" href=\"test\">Test</a></li>\n";
+    echo "<li><a class=\"navlink\" href=\"history\">History</a></li>\n";
+    echo "<li><a class=\"navlink\" href=\"contacts\">Contacts</a></li>\n";
     echo "<li><a class=\"logout-but\" href=\"?actn=logout&logout=1\">Logout</a></li>\n";
     
 }   
 
 
     echo "<li id=\"g-info-holder\">"
-    ."<div class= \"g-signin2\" data-onsuccess=\"onSignIn\"></div>"
+    ."<div id=\"my-signin2\" class= \"g-signin2\" data-onsuccess=\"onSignIn\"></div>"
     ."</li>\n";
     echo '<div class="g-info"></div>';
- 
+
 
 ?>
             </ul>

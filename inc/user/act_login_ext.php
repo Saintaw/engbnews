@@ -20,9 +20,10 @@ if($errMsg == ''){
             $_SESSION['auth'] = true;
             $_SESSION['username'] = $username;
             $auth_str = 'true';
+            $message = 'You have successully logged in with google';
         }else{
             $auth_str = 'false';
-            $message = 'Username and Password are not found<br>';
+            $message = 'Username and Password are not found';
         }
     }
 ?>

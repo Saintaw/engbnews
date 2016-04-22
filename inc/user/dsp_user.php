@@ -17,11 +17,32 @@ if (isset($_POST["Ph"])&&(trim($_POST["Ph"]) !== ""))
     $g_photo = '<img src="' .$m_photo .'"></img>';
     }    
 ?>
-<div id="user-panel">
-    <div class="panel-name"><?php echo $g_name; ?></div>
-    <div class="panel-email"><?php echo $g_email; ?></div>
-    <div class="panel-photo"><?php echo $g_photo; ?></div>
-</div>
 
+
+<div class="container ">
+	<div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+
+                <div class="card hovercard">
+                    <div class="cardheader">
+
+                    </div>
+                    <div class="avatar">
+                        <?php echo $g_photo; ?>
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            <a target="_blank" href="mailto:<?php echo $g_email; ?>"><?php echo $g_name; ?></a>
+                        </div>
+                        <div class="desc"><?php echo $g_email; ?></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-4"></div>
+	</div>
+</div>
 
 
