@@ -15,12 +15,19 @@ $(function() {
      $( ".navlink" ).click(function(e) {
        e.preventDefault();
         strInputs = {actn: $(this).attr('href')};
-        $.get( "./inc/loader.php", strInputs)
-        .done(function( data ) {
-         $("maincontainer").html(data); 
-        });
-         
+        loadPageContent(strInputs);
+
    });   
+
+    function loadPageContent(addr) {
+       $.get( "./inc/loader.php", strInputs)
+            .done(function( data ) {
+            $("maincontainer").html(data); 
+        }); 
+    }
+    
+    
+    
     
     
     $( ".logout-but" ).click(function(e) {
@@ -55,21 +62,30 @@ $(function() {
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
       var gInfoStr = "";
-      console.log('Google API loaded with onSignIn');
       var id_token = googleUser.getAuthResponse().id_token;
-      console.log('Token: ' + id_token);
       
-      
-      /*verify token*/
-      /* https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=XYZ123 */
- 
-        
-        $.post( "https://www.googleapis.com/oauth2/v3/tokeninfo?", { id_token: id_token })
-         .done(function( gdata ) {
-           console.log(gdata);
+        $.post( "https://www.googleapis.com/oauth2/v3/tokeninfo?", { id_token: id_token }, function() {
+          //console.log("Called Ticket auth");
+      })
+          .error(function() { 
+                console.log("Error authenticating with Google");
+                signOut();
+                signOutLocal();  
+          })
+          .success(function(gdata) { 
+            $.post( "./inc/user/act_validate_ticket.php", {id_ticket: gdata.aud })
+            .done(function( localdata ) {
+                 var retValidate = jQuery.parseJSON(localdata);  
+                 if (retValidate.result == true) {
+                     //console.log('Auth Validated');
+                 }
+                 else {
+                 console.log("Error authenticating with Google");
+                 signOut();
+                 signOutLocal();                      
+                 }
+            });
         });        
-        
-        
       
       gInfoStr += '<div id="g-card">';
       gInfoStr += '<a href="#profile" id="signout-but" class="logout-but"><img src="' +profile.getImageUrl() +'" class="g-picture" />';
@@ -78,7 +94,13 @@ $(function() {
       gInfoStr += '</div>';
       gInfoStr += '</a></div>';
 
-        $.post( "./inc/user/act_login_ext.php", { username: profile.getEmail() })
+        $.post( "./inc/user/act_login_ext.php", {
+            username: profile.getEmail(),
+            id_token: id_token, 
+            picture: profile.getImageUrl(),
+            full_name: profile.getName()
+            
+         })
          .done(function( data ) {
            $("#debug-div pre").html($.trim(data));
            var retLogin = jQuery.parseJSON(data);
@@ -91,7 +113,7 @@ $(function() {
                 dislayUserPanel(profile);
              }
                 else {
-                   alert('login failed'); 
+                   alert('Sorry: login failed'); 
                 }
         });
 

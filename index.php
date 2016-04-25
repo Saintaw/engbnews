@@ -36,13 +36,10 @@ if ((isset($_GET['logout']))&&($_GET['logout'] == 1)) {
    
 <body>
 <div class="container">
-<!-- <div ng-app="myApp" ng-controller="myCtrl">
-User: {{ firstName + " " + lastName }}
-</div>
--->
+
 <navigation>
 <?php
-require_once '/inc/inc_nav.php';
+require_once '/inc/nav/inc_nav.php';
 ?>
 </navigation>    
 <maincontainer>
@@ -81,16 +78,6 @@ else {
 <script src="js/bootstrap.min.js"></script>
 <script src="js/lib/jquery-ui/jquery-ui.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<!-- <script src="js/lib/google_local.js"></script>  -->
 <script src="js/lib/local.js"></script> 
-
-
-
-<!--
-<script src="js/angular.js"></script>
-<script src="js/myApp.js"></script>
-<script src="js/myCtrl.js"></script>
--->
-
 </body>
 </html>

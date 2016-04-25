@@ -22,7 +22,7 @@
 <div class="form-group">
   <label class="col-md-3 control-label" for="mainContent">Content</label>
   <div class="col-md-8">                     
-    <textarea class="form-control" id="mainContent" name="mainContent">This is where you put the body of your message...</textarea>
+    <textarea class="form-control" id="mainContent" name="mainContent"></textarea>
   </div>
 </div>
 
@@ -52,8 +52,13 @@
 $(function() {
     //trigger when page has loaded 
 
-   //datepicker
-   $( "#datepicker" ).datepicker();
+$( "#butSave" ).click(function(e) {
+      e.preventDefault();
+      alert( "sub it." );
+});
+
+//datepicker
+$( "#datepicker" ).datepicker();
    
   });
 </script>

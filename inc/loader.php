@@ -1,23 +1,27 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+session_start();
 $actn = "";
+if (!isset($_SESSION["actn"])) {
+   $_SESSION["actn"] = ""; 
+}
+
 
 if (isset($_GET['actn'])) {
-    echo "Action => '" .trim($_GET['actn']) ."'";
+    echo "Action => GET: '" .trim($_GET['actn']) ."'";
     $actn = trim($_GET['actn']);
-    
+    $_SESSION["actn"] = $actn;
 }   
+else {
+    $actn = $_SESSION["actn"];
+    echo "Action => Session: '" .$actn ."'";
+}
+
 switch ($actn) {
     case "home":
-        //require_once '/inc/user/dsp_user.php';
+        echo "<h1>Home Page...</h1>";
         break;
     case "dsp_form":
-        require_once 'inc_mailer_form.php';
+        require_once '/mailer/inc_mailer_form.php';
         break;
 }      
 
