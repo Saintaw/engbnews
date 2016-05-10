@@ -12,7 +12,10 @@ require_once '/inc/inc_setup.php';
     <meta name="google-signin-client_id" content="625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com">
     <script src="js/lib/jquery.min.js"></script>
     <script type="text/javascript">
- 
+ $(function() {
+     loadPage = loadPageContent('<?php echo $_SESSION["actn"]?>');
+     
+  });       
     </script>
 
 
@@ -20,8 +23,12 @@ require_once '/inc/inc_setup.php';
     <title><?php echo $appName;?></title>
 
     <!-- Style -->
-    <link href="css/sh-bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="css/sh-bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/bare-bootstrap.min.css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/summernote.css" rel="stylesheet">
+    <link href="css/bootstrap-switch.css" rel="stylesheet">
+    
     <link href="css/local.css" rel="stylesheet">
     <style>
    
@@ -35,6 +42,7 @@ if ((isset($_GET['logout']))&&($_GET['logout'] == 1)) {
 ?>
    
 <body>
+    <div id="myModal" style="display:none;"></div>    
 <div class="container">
 
 <navigation>
@@ -46,9 +54,7 @@ require_once '/inc/nav/inc_nav.php';
 <!-- Main Content goes here -->
 
 </maincontainer>    
-<div class="row">
-    <div id="user-div"></div>
-</div>
+
 
 <div class="row">
     
@@ -72,12 +78,19 @@ else {
         <pre></pre>
     </div>
 </div>
+    
+<div class="row">
+    <div id="user-div"></div>
+</div>    
 
 </div>
 
-<script src="js/bootstrap.min.js"></script>
+
 <script src="js/lib/jquery-ui/jquery-ui.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/summernote.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="js/bootstrap-switch.js"></script> 
 <script src="js/lib/local.js"></script> 
 </body>
 </html>

@@ -16,31 +16,28 @@ $(function() {
        e.preventDefault();
         strInputs = {actn: $(this).attr('href')};
         loadPageContent(strInputs);
+        window.history.pushState('page2', 'Title', '/#' +$(this).attr('href'));
 
    });   
-
-    function loadPageContent(addr) {
-       $.get( "./inc/loader.php", strInputs)
-            .done(function( data ) {
-            $("maincontainer").html(data); 
-        }); 
-    }
     
-    
-    
-    
-    
-    $( ".logout-but" ).click(function(e) {
+   $( "body" ).on( "click", ".logout-but", function(e) {
        e.preventDefault();
        signOut();
        signOutLocal();
        window.location = "./index.php";
-   });
+    });
 });
 
+    function loadPageContent(addr) {
+       $.get( "./inc/loader.php", addr)
+            .done(function( data ) {
+            $("maincontainer").html(data); 
+        }); 
+    }
+ 
     /******************* Global functions *******************/
     
-
+    /*
     function gapiAppStart(){
        gapi.load('auth2', function() {
         auth2 = gapi.auth2.init({client_id:'625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com'});
@@ -58,14 +55,14 @@ $(function() {
 
       });       
     }
-
+    */
+   
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
       var gInfoStr = "";
       var id_token = googleUser.getAuthResponse().id_token;
       
         $.post( "https://www.googleapis.com/oauth2/v3/tokeninfo?", { id_token: id_token }, function() {
-          //console.log("Called Ticket auth");
       })
           .error(function() { 
                 console.log("Error authenticating with Google");
@@ -77,10 +74,9 @@ $(function() {
             .done(function( localdata ) {
                  var retValidate = jQuery.parseJSON(localdata);  
                  if (retValidate.result == true) {
-                     //console.log('Auth Validated');
                  }
                  else {
-                 console.log("Error authenticating with Google");
+                 alert("Error authenticating with Google, Goodbye");
                  signOut();
                  signOutLocal();                      
                  }

@@ -6,15 +6,18 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row" style="border: solid 1px #f0f;">
-<form class="form-horizontal">
+
+
+
+<div class="row">
+    <form class="form-horizontal" id="mailer-form">
 <fieldset>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-3 control-label" for="emSubject" style="border: solid 1px #f0f;">Subject</label>  
+  <label class="col-md-3 control-label" for="emSubject">Subject</label>  
   <div class="col-md-8">
   <input id="emSubject" name="emSubject" type="text" placeholder="Subject" class="form-control input-md" required="">
-  <span class="help-block">Type in an email subject here</span>  
+
   </div>
 </div>
 
@@ -26,14 +29,26 @@
   </div>
 </div>
 
-<!-- Text input-->
 <div class="form-group">
-  <label class="col-md-3 control-label" for="datepicker">Deadline</label>  
+    <div class="col-md-3">
+    </div>
   <div class="col-md-8">
-  <input id="datepicker" name="datepicker" type="text" placeholder="Date or ASAP" class="form-control input-md">
-    
+      <input type="checkbox" name="input_switcher" id="input_switcher" class="form-control input-md" data-on-text="Formated"data-off-text="Free" checked>
   </div>
 </div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-3 control-label" for="datepicker">Deadline / Free</label>  
+  <div class="col-md-4">
+  <input id="datepicker" name="datepicker" type="text" placeholder="Date" class="form-control input-md">
+  <input id="deadline_str" name="deadline_str" type="text" placeholder="ASAP" class="form-control input-md" style="display:none;">
+  </div>
+</div>
+
+
+
 
 <!-- Button (Double) -->
 <div class="form-group">
@@ -47,20 +62,57 @@
 </fieldset>
 </form>
 </div>
-
 <script>
 $(function() {
-    //trigger when page has loaded 
+$("#input_switcher").bootstrapSwitch();
+
+
+$('#input_switcher').on('switchChange.bootstrapSwitch', function(event, state) {
+  
+  //datepicker
+  //deadline_str
+  
+  $("#input_switcher").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+  
+  
+  if (state == true) {
+     console.log('Show it');
+     $('#datepicker').show();
+     $('#deadline_str').hide();
+  }
+  else {
+     console.log('Hide it'); 
+     $('#datepicker').hide();
+     $('#deadline_str').show();     
+  }
+});
+
+
 
 $( "#butSave" ).click(function(e) {
       e.preventDefault();
-      alert( "sub it." );
+      $formEl = $("#mailer-form").serialize();
+      console.log('Parameters :' +$formEl);
+     $.post( "./inc/mailer/act_mailer_validate.php", $formEl)
+        .done(function( data ) {
+        var retResponse = $.trim(data);
+        console.log(retResponse);
+        $("#debug-div pre").html(retResponse);
+        });     
+
 });
 
-//datepicker
-$( "#datepicker" ).datepicker();
-   
-  });
+    //Date Picker
+    $( "#datepicker" ).datepicker();
+    
+    //Rich Editor
+    $('#mainContent').summernote({
+        dialogsInBody: true,
+        height: 350,
+        minHeight: 350,
+        focus: true      
+        });
+
+
+});
 </script>
-
-
