@@ -1,17 +1,39 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<?php 
+require_once '../inc/inc_setup.php';
 ?>
-
-
-
 <div class="row">
     <form class="form-horizontal" id="mailer-form">
 <fieldset>
+    
+<div class="form-group">
+  <label class="col-md-3 control-label" for="emrecips">Recipients</label>  
+  <div class="col-md-8">
+  /* list recipients (db) */
+<?php
+function getRecipients($conn) {
+    $sql = 'SELECT id, email FROM `recipients` WHERE core = 1 ORDER BY LOWER(email) ASC';
+    foreach ($conn->query($sql) as $row) {
+        print $row['id'] . "\t";
+        print $row['email'] . "\t";
+    }
+}
+getRecipients($conn) ;
+
+
+?>  
+  
+  
+  
+  <br />
+  /* Add custom recipient */
+  
+
+  </div>
+</div>    
+    
+    
+    
+    
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-3 control-label" for="emSubject">Subject</label>  
@@ -29,19 +51,14 @@
   </div>
 </div>
 
-<div class="form-group">
-    <div class="col-md-3">
-    </div>
-  <div class="col-md-8">
-      <input type="checkbox" name="input_switcher" id="input_switcher" class="form-control input-md" data-on-text="Formated"data-off-text="Free" checked>
-  </div>
-</div>
-
-
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-3 control-label" for="datepicker">Deadline / Free</label>  
-  <div class="col-md-4">
+    <label class="col-md-3 control-label" for="datepicker" id="dp-label">Deadline / Free</label>  
+   <div class="col-md-2">
+      <input type="checkbox" name="input_switcher" id="input_switcher" class="form-control input-md" data-on-text="Formated"data-off-text="Free" checked>
+  </div> 
+    
+    <div class="col-md-2">
   <input id="datepicker" name="datepicker" type="text" placeholder="Date" class="form-control input-md">
   <input id="deadline_str" name="deadline_str" type="text" placeholder="ASAP" class="form-control input-md" style="display:none;">
   </div>
@@ -62,19 +79,12 @@
 </fieldset>
 </form>
 </div>
-<script>
+<script type="text/javascript">
 $(function() {
 $("#input_switcher").bootstrapSwitch();
 
 
 $('#input_switcher').on('switchChange.bootstrapSwitch', function(event, state) {
-  
-  //datepicker
-  //deadline_str
-  
-  $("#input_switcher").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-  
-  
   if (state == true) {
      console.log('Show it');
      $('#datepicker').show();
@@ -86,8 +96,6 @@ $('#input_switcher').on('switchChange.bootstrapSwitch', function(event, state) {
      $('#deadline_str').show();     
   }
 });
-
-
 
 $( "#butSave" ).click(function(e) {
       e.preventDefault();
@@ -101,7 +109,6 @@ $( "#butSave" ).click(function(e) {
         });     
 
 });
-
     //Date Picker
     $( "#datepicker" ).datepicker();
     
