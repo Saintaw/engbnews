@@ -24,7 +24,7 @@ if (!isset($_SESSION['auth']) or $_SESSION['auth'] == "") {
 }
 else {
     echo "<li><a class=\"navlink\" href=\"dsp_form\">Form</a></li>\n";
-    echo "<li><a class=\"navlink\" href=\"test\">Test</a></li>\n";
+    //echo "<li><a class=\"navlink\" href=\"test\">Test</a></li>\n";
     echo "<li><a class=\"navlink\" href=\"history\">History</a></li>\n";
     echo "<li><a class=\"navlink\" href=\"contacts\">Contacts</a></li>\n";
     echo "<li><a class=\"logout-but\" href=\"?actn=logout&logout=1\">Logout</a></li>\n";

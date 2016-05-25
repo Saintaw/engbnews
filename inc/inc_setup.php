@@ -1,5 +1,4 @@
 <?php
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +10,15 @@ if ((isset($_GET['actn']))&&(trim($_GET['actn']) !== "")) {
     $actn = trim($_GET['actn']);
 }
 
+if (isset($_SESSION['auth'])&&($_SESSION['auth'] !== "")) {
+    $js_UserState = "true";
+}
+ else {
+    $js_UserState = "false";
+}
+
+
+/**************************************************************************************/
 $servername = "localhost";
 $username = "www";
 $password = "www";

@@ -10,16 +10,6 @@ require_once '/inc/inc_setup.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="google-signin-client_id" content="625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com">
-    <script src="js/lib/jquery.min.js"></script>
-    <script type="text/javascript">
- $(function() {
-     loadPage = loadPageContent('<?php echo $_SESSION["actn"]?>');
-     
-  });       
-    </script>
-
-
-
     <title><?php echo $appName;?></title>
 
     <!-- Style -->
@@ -85,12 +75,25 @@ else {
 
 </div>
 
-
+<script src="js/lib/require.js" data-main="scripts/main"></script> 
+<!--
+<script src="js/lib/jquery.min.js"></script>   
 <script src="js/lib/jquery-ui/jquery-ui.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/summernote.min.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+<script src="js/lib/summernote.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="js/bootstrap-switch.js"></script> 
-<script src="js/lib/local.js"></script> 
+<script src="js/lib/bootstrap-switch.js"></script> 
+-->
+
+<script src="js/local.js"></script>
+<script type="text/javascript">
+    var UserState = "<?php echo $js_UserState; ?>";    
+    $(function() {
+        loadPage = loadPageContent('<?php echo $actn?>');
+     });       
+</script>
+
+
+
 </body>
 </html>

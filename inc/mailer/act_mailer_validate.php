@@ -7,7 +7,14 @@
  */
 foreach($_POST as $key=>$value)
 {
-  echo "<br />$key=$value";
+  if (is_array($value)) {
+      print_r($value); 
+  }
+ else {
+     $value = htmlspecialchars($value);
+     echo "<br />$key => $value ";     
+  }
+
 }
 ?>
 

@@ -1,5 +1,6 @@
 <?php 
 require_once '../inc/inc_setup.php';
+$templatecontent =  file_get_contents('C:\Users\poiteal\Documents\GitHub\engbnews\inc\mailer\template_1.html');
 ?>
 <div class="row">
     <form class="form-horizontal" id="mailer-form">
@@ -7,39 +8,23 @@ require_once '../inc/inc_setup.php';
     
 <div class="form-group">
   <label class="col-md-3 control-label" for="emrecips">Recipients</label>  
-  <div class="col-md-8">
-  /* list recipients (db) */
+  <div class="col-md-4">
 <?php
-function getRecipients($conn) {
-    $sql = 'SELECT id, email FROM `recipients` WHERE core = 1 ORDER BY LOWER(email) ASC';
-    foreach ($conn->query($sql) as $row) {
-        print $row['id'] . "\t";
-        print $row['email'] . "\t";
-    }
-}
-getRecipients($conn) ;
-
-
+drawRecipient($conn);
 ?>  
-  
-  
-  
-  <br />
-  /* Add custom recipient */
-  
+  </div>
+  <div class="col-md-4">
+  <input id="extra_recip" name="extra_recip" type="text" placeholder="Extra Recipients" class="form-control input-md">
+  <small>(Coma separated values)</small>
 
   </div>
-</div>    
-    
-    
-    
+</div>
     
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-3 control-label" for="emSubject">Subject</label>  
   <div class="col-md-8">
   <input id="emSubject" name="emSubject" type="text" placeholder="Subject" class="form-control input-md" required="">
-
   </div>
 </div>
 
@@ -47,7 +32,7 @@ getRecipients($conn) ;
 <div class="form-group">
   <label class="col-md-3 control-label" for="mainContent">Content</label>
   <div class="col-md-8">                     
-    <textarea class="form-control" id="mainContent" name="mainContent"></textarea>
+      <textarea class="form-control" id="mainContent" name="mainContent"></textarea>
   </div>
 </div>
 
@@ -63,10 +48,6 @@ getRecipients($conn) ;
   <input id="deadline_str" name="deadline_str" type="text" placeholder="ASAP" class="form-control input-md" style="display:none;">
   </div>
 </div>
-
-
-
-
 <!-- Button (Double) -->
 <div class="form-group">
   <label class="col-md-3 control-label" for="butSave"></label>
@@ -111,15 +92,46 @@ $( "#butSave" ).click(function(e) {
 });
     //Date Picker
     $( "#datepicker" ).datepicker();
-    
-    //Rich Editor
-    $('#mainContent').summernote({
-        dialogsInBody: true,
-        height: 350,
-        minHeight: 350,
-        focus: true      
-        });
-
-
+        $.get( "../inc/mailer/template_1.html", function( data ) {
+         $( ".result" ).html( data );
+         alert(data);
+         $('#mainContent').val(data);
+         
+        //Rich Editor
+           $('#mainContent').summernote({
+               dialogsInBody: true,
+               height: 300,
+               minHeight: 300,
+               focus: true
+               });        
+       });   
 });
 </script>
+
+
+
+<?php
+function getRecipients($conn) {
+    $recipients = [];
+    $sql = 'SELECT id, email FROM `recipients` WHERE core = 1 ORDER BY LOWER(email) ASC';
+    foreach ($conn->query($sql) as $row) {
+    $recipients[$row['id']] =  $row['email'];
+    }
+    return $recipients;
+}
+
+function drawRecipient($conn) {
+    $recipients = getRecipients($conn);
+    
+    echo '<div class="list-group">';
+    foreach($recipients as $key => $val) {
+       echo '<div class="list-group-item list-group-item-success checkbox">';
+       echo '<label><input name="recipients[]" type="checkbox" value="' .$key .'" checked> ' .$val .'</label>';
+       echo '</div>'; 
+    }
+    echo '</div>';    
+
+}
+
+
+?>

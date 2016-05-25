@@ -5,7 +5,6 @@ $(function() {
     //trigger when page has loaded 
     var auth2; // The Sign-In object.
     var googleUser; // The current user.
-
     //Call Google API
     //var myGapi = gapiAppStart();
 
@@ -106,7 +105,14 @@ $(function() {
                 $(".g-info").html(gInfoStr);
                 $("#g-info-holder").hide();          
                 $("#login-container").html("<h4>debug: Logged in</h4>");
-                dislayUserPanel(profile);
+                if (UserState == 'false') {
+                   dislayUserPanel(profile);
+                   //wait and redirect the user...
+                        setTimeout(function() {
+                          window.location.href = "./index.php";
+                        }, 2000);                   
+                }
+                 
              }
                 else {
                    alert('Sorry: login failed'); 
@@ -138,7 +144,7 @@ function dislayUserPanel(profile) {
     .done(function( data ) {
       var retLogout = data;
       $("#user-div").html(data);
-      $("#user-div").fadeIn( 400 );
+      $("#user-div").fadeIn(400);
     });     
 }
 
