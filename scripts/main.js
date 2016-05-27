@@ -1,24 +1,12 @@
 requirejs.config({
-    baseUrl: './js/lib',
-    paths: {
-        jquery: 'jquery.min',
-        local: './scripts/local',
-        bootstrap: 'bootstrap.min'
-    }
 });
+requirejs(['jquery'], function( $ ) {});
+requirejs(['local'], function( ) {});
 
-require(['jquery'], function ($) {
-    console.log('jQuery loaded');
+requirejs(["lib/jquery-ui"], function(jui) {});
+requirejs(["lib/bootstrap"], function(bootstrap) {});
 
-});
 
-requirejs(["local"], function(local) {
-    console.log('Local files loaded');   
-    
-});
-requirejs(["bootstrap.min"], function(bootstrap) {
-      console.log('Bootstrap loaded');
-    
-});
-
+requirejs(["lib/summernote.min"], function(summernotemin) {});
+requirejs(["lib/bootstrap-switch"], function(bootstrapswitch) {});
 
