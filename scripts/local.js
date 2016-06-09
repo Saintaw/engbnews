@@ -1,4 +1,7 @@
 $(function() {
+    
+    loadPage = loadPageContent(sessionStorage.UserState);
+    
     /*
      625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com
     */
@@ -35,26 +38,7 @@ $(function() {
     }
  
     /******************* Global functions *******************/
-    
-    /*
-    function gapiAppStart(){
-       gapi.load('auth2', function() {
-        auth2 = gapi.auth2.init({client_id:'625982426571-cdlve945k3eonv5hp7lhg7oikh2hprgp.apps.googleusercontent.com'});
-        console.log('Google API "gapi" loaded with gapiAppStart');
-        console.log(auth2.currentUser);
-            if (auth2.isSignedIn.get()) {
-              var profile = auth2.currentUser.get().getBasicProfile();
-              console.log('ID: ' + profile.getId());
-              console.log('Full Name: ' + profile.getName());
-              console.log('Given Name: ' + profile.getGivenName());
-              console.log('Family Name: ' + profile.getFamilyName());
-              console.log('Image URL: ' + profile.getImageUrl());
-              console.log('Email: ' + profile.getEmail());
-            }
 
-      });       
-    }
-    */
    
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
@@ -105,7 +89,7 @@ $(function() {
                 $(".g-info").html(gInfoStr);
                 $("#g-info-holder").hide();          
                 $("#login-container").html("<h4>debug: Logged in</h4>");
-                if (UserState == 'false') {
+                if (sessionStorage.UserState == 'false') {
                    dislayUserPanel(profile);
                    //wait and redirect the user...
                         setTimeout(function() {

@@ -76,31 +76,12 @@ else {
 </div>
 
 <script type="text/javascript">
-    var UserState = "<?php echo $js_UserState; ?>";    
+    sessionStorage.UserState = "<?php echo $js_UserState; ?>";
 </script>    
 <script data-main="scripts/main" src="scripts/require.js"></script>
-
-<!--
-<script src="js/lib/jquery.min.js"></script>   
-<script src="js/lib/jquery-ui/jquery-ui.js"></script>
-<script src="js/lib/bootstrap.js"></script>
-<script src="js/lib/summernote.min.js"></script>
-
-<script src="js/lib/bootstrap-switch.js"></script>
-<script src="js/local.js"></script>
--->
-
-
-
-
-<!--
 <script type="text/javascript">
-    var UserState = "<?php echo $js_UserState; ?>";    
-    $(function() {
-        loadPage = loadPageContent('<?php echo $actn?>');
-     });       
 </script>
--->
+
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
