@@ -17,7 +17,6 @@ if (isset($_SESSION['auth'])&&($_SESSION['auth'] !== "")) {
     $js_UserState = "false";
 }
 
-
 /**************************************************************************************/
 $servername = "localhost";
 $username = "www";

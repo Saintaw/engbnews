@@ -1,6 +1,6 @@
 <?php 
 require_once '../inc/inc_setup.php';
-$templatecontent =  file_get_contents('C:\Users\poiteal\Documents\GitHub\engbnews\inc\mailer\template_1.html');
+//$templatecontent =  file_get_contents('C:\Users\poiteal\Documents\GitHub\engbnews\inc\mailer\template_1.html');
 ?>
 <div class="row">
     <form class="form-horizontal" id="mailer-form">
@@ -19,6 +19,19 @@ drawRecipient($conn);
 
   </div>
 </div>
+    
+    
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-3 control-label" for="emSubject">Subject</label>  
+  <div class="col-md-8">
+  <input id="emSubject" name="emSubject" type="text" placeholder="Subject" class="form-control input-md" required="">
+  </div>
+</div>    
+    
+    
+    
+    
 <!-- template picker -->
 <!-- Text input-->
 <div class="form-group">
@@ -35,13 +48,7 @@ drawTemplateList($conn);
 
     
     
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-3 control-label" for="emSubject">Subject</label>  
-  <div class="col-md-8">
-  <input id="emSubject" name="emSubject" type="text" placeholder="Subject" class="form-control input-md" required="">
-  </div>
-</div>
+
 
 <!-- Textarea -->
 <div class="form-group">
@@ -105,21 +112,39 @@ $( "#butSave" ).click(function(e) {
         });     
 
 });
-    //Date Picker
-    $( "#datepicker" ).datepicker();
-        $.get( "../inc/mailer/template_1.html", function( data ) {
-         $( ".result" ).html( data );
+//Date Picker
+$( "#datepicker" ).datepicker();
 
-         $('#mainContent').val(data);
-         
-        //Rich Editor
-           $('#mainContent').summernote({
-               dialogsInBody: true,
-               height: 300,
-               minHeight: 300,
-               focus: true
-               });        
-       });   
+   
+// #template-listing-container
+$( "#template-listing-container input" ).on( "click", function() {
+
+    console.log("1 init TA");
+     $( ".result" ).html('emptied');
+     $('#mainContent').val('emptied');
+     $('#mainContent').summernote('destroy');
+     console.log("2 Summernote reset");
+
+    $.get( "./inc/mailer/inc_template_detail.php", {"tid": $( this ).val() })
+    .done(function( data ) {
+     $( ".result" ).html(data);
+     $('#mainContent').val(data);
+    
+       
+       //Rich Editor
+       console.log("3 Summernote declared");
+       $('#mainContent').summernote({
+           dialogsInBody: true,
+           height: 300,
+           minHeight: 300,
+           focus: true
+           });  
+
+    });     
+  
+});
+   
+   
 });
 </script>
 
@@ -157,9 +182,15 @@ function getTemplatesList($conn) {
     return $templates;    
 }
 
-function getTemplateContent() {
-    
+/*
+function getTemplateContent($conn, $tid) {
+    $sql = 'SELECT t_content FROM `templates` WHERE t_id = ' .val($tid);
+    foreach ($conn->query($sql) as $row) {
+    $tContent =  $row['t_content'];
+    }
+    return $tContent;      
 }
+*/
 
 function drawTemplateList($conn) {
    $templates = getTemplatesList($conn);
@@ -172,7 +203,7 @@ function drawTemplateList($conn) {
    else {
         $myTemplate = val($_POST[template]);
    }
-    echo '<div class="list-group">';
+    echo '<div class="list-group" id="template-listing-container">';
     echo "//Selected T: " .$myTemplate . "<br />";
     foreach($templates as $key => $val) {
        echo '<div class="list-group-item list-group-item-info checkbox">';
@@ -184,10 +215,11 @@ function drawTemplateList($conn) {
         }
        echo '</div>'; 
     }
-   echo '</div>';    
-   echo "Templates: <pre>";
+   echo '</div>'; 
+   
+   /*echo "Templates: <pre>";
    print_r($templates);
-   echo "Templates: </pre>";
+   echo "Templates: </pre>";*/
 }
 
 
