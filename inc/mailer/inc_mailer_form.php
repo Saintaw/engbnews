@@ -19,6 +19,21 @@ drawRecipient($conn);
 
   </div>
 </div>
+<!-- template picker -->
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-3 control-label" for="emSubject">Template</label>  
+  <div class="col-md-8">
+<?php
+drawTemplateList($conn);
+?>
+      
+  </div>
+</div>
+
+
+
+    
     
 <!-- Text input-->
 <div class="form-group">
@@ -94,7 +109,7 @@ $( "#butSave" ).click(function(e) {
     $( "#datepicker" ).datepicker();
         $.get( "../inc/mailer/template_1.html", function( data ) {
          $( ".result" ).html( data );
-         alert(data);
+
          $('#mainContent').val(data);
          
         //Rich Editor
@@ -131,6 +146,48 @@ function drawRecipient($conn) {
     }
     echo '</div>';    
 
+}
+
+function getTemplatesList($conn) {
+    $templates = [];
+    $sql = 'SELECT t_id, t_name FROM `templates` ORDER BY LOWER(t_name) ASC';
+    foreach ($conn->query($sql) as $row) {
+    $templates[$row['t_id']] =  $row['t_name'];
+    }
+    return $templates;    
+}
+
+function getTemplateContent() {
+    
+}
+
+function drawTemplateList($conn) {
+   $templates = getTemplatesList($conn);
+   $myTemplate = 1;
+   
+   if (!isset($_POST['template']) or $_POST['template'] == "")
+        {
+        $myTemplate = 1;
+   }
+   else {
+        $myTemplate = val($_POST[template]);
+   }
+    echo '<div class="list-group">';
+    echo "//Selected T: " .$myTemplate . "<br />";
+    foreach($templates as $key => $val) {
+       echo '<div class="list-group-item list-group-item-info checkbox">';
+        if ($key == $myTemplate) {
+            echo '<label><input name="template[]" type="radio" value="' .$key .'" checked> ' .ucfirst($val)  ."[$key]"  .'</label>';
+            }
+        else {
+           echo '<label><input name="template[]" type="radio" value="' .$key .'"> ' .ucfirst($val)  ."[$key]"  .'</label>'; 
+        }
+       echo '</div>'; 
+    }
+   echo '</div>';    
+   echo "Templates: <pre>";
+   print_r($templates);
+   echo "Templates: </pre>";
 }
 
 
